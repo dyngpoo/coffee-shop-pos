@@ -1,4 +1,4 @@
-package com.timkasir;
+package com.timkasir.controller;
 
 import com.timkasir.database.DBConnection;
 import javafx.fxml.FXML;
