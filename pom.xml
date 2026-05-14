@@ -24,7 +24,7 @@
             <artifactId>javafx-controls</artifactId>
             <version>${javafx.version}</version>
         </dependency>
-
+        
         <!-- JavaFX FXML -->
         <dependency>
             <groupId>org.openjfx</groupId>

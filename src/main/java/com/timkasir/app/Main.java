@@ -1,26 +1,36 @@
 package com.timkasir.app;
 
-import javafx.application.Application;
-import javafx.scene.Scene;
-import javafx.scene.control.Label;
-import javafx.stage.Stage;
 import com.timkasir.database.DBConnection;
+import javafx.application.Application;
+import javafx.fxml.FXMLLoader;
+import javafx.scene.Scene;
+import javafx.stage.Stage;
 
 public class Main extends Application {
 
     @Override
-    public void start(Stage stage) {
+    public void start(Stage stage) throws Exception {
 
-        Label label = new Label("JavaFX Jalan");
+        // TEST KONEKSI DATABASE
+        DBConnection.connect();
 
-        Scene scene = new Scene(label, 400, 300);
+        // LOAD LOGIN FXML
+        FXMLLoader fxmlLoader =
+                new FXMLLoader(
+                        Main.class.getResource("/com/timkasir/Login.fxml")
+                );
 
-        stage.setTitle("Kasir App");
+        Scene scene = new Scene(fxmlLoader.load());
+
+        stage.setTitle("Coffee Shop POS");
+
         stage.setScene(scene);
+
         stage.show();
     }
 
     public static void main(String[] args) {
+
         launch();
     }
 }
