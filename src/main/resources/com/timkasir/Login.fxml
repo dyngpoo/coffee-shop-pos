@@ -27,7 +27,7 @@
                            preserveRatio="false">
                     <image>
                         <!-- GANTI DENGAN PATH GAMBAR -->
-                        <Image url="@images/coffee_bg.png"/>
+                        <Image url="@images/coofe.png"/>
                     </image>
                 </ImageView>
 
@@ -73,7 +73,7 @@
                            preserveRatio="true">
                     <image>
                         <!-- GANTI DENGAN PATH GAMBAR -->
-                        <Image url="@images/coffee_cup.png"/>
+                        
                     </image>
                 </ImageView>
 
