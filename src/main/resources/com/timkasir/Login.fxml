@@ -1,250 +1,97 @@
 <?xml version="1.0" encoding="UTF-8"?>
-
-<?import javafx.geometry.Insets?>
-<?import javafx.scene.control.*?>
-<?import javafx.scene.image.Image?>
-<?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.*?>
-<?import javafx.scene.text.Font?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.image.*?>
+<?import javafx.geometry.*?>
 
-<AnchorPane prefHeight="529.0" prefWidth="885.0"
-            xmlns="http://javafx.com/javafx/21"
-            xmlns:fx="http://javafx.com/fxml/1"
-            
-            fx:controller="com.timkasir.controller.LoginController">
+<HBox xmlns="http://javafx.com/javafx"
+      xmlns:fx="http://javafx.com/fxml"
+      fx:controller="com.timkasir.controller.LoginController"
+      prefWidth="900" prefHeight="560"
+      styleClass="login-root">
 
-    <children>
+    <!-- ══ KIRI: background + overlay + logo ══ -->
+    <StackPane HBox.hgrow="ALWAYS">
 
-        <!-- LEFT PANEL -->
-        <AnchorPane prefHeight="529.0" prefWidth="431.0"
-                    style="-fx-background-color: linear-gradient(to bottom right, #4b240f, #1f0d05);">
+        <!-- Layer 1: background foto -->
+        <ImageView preserveRatio="false"
+                   fitWidth="500" fitHeight="560"
+                   smooth="true">
+            <image>
+                <Image url="@/com/timkasir/images/coofe.png"/>
+            </image>
+        </ImageView>
 
-            <children>
+        <!-- Layer 2: overlay gelap -->
+        <Pane style="-fx-background-color: rgba(45,25,10,0.55);"/>
 
-                <!-- background coffee image -->
-                <ImageView fitHeight="529.0" fitWidth="431.0"
-                           opacity="0.35"
-                           preserveRatio="false">
-                    <image>
-                        <!-- GANTI DENGAN PATH GAMBAR -->
-                        <Image url="@images/coofe.png"/>
-                    </image>
-                </ImageView>
+        <!-- Layer 3: logo & teks -->
+        <VBox alignment="TOP_CENTER" spacing="8"
+              style="-fx-padding: 40 20 20 20;">
+            <ImageView fitWidth="80" preserveRatio="true">
+                <image>
+                    <Image url="@/com/timkasir/images/logo2.png"/>
+                </image>
+            </ImageView>
+            <Label text="CoffeeShop"        styleClass="login-brand-title"/>
+            <Label text="Brew Your Moments" styleClass="login-brand-sub"/>
+        </VBox>
 
-                <!-- Logo -->
-                <VBox alignment="CENTER"
-                      layoutX="74.0"
-                      layoutY="78.0"
-                      spacing="10.0">
+    </StackPane>
 
-                    <children>
+    <!-- ══ KANAN: form login ══ -->
+    <StackPane prefWidth="420" styleClass="login-right">
+        <VBox alignment="CENTER" spacing="0"
+              maxWidth="320" styleClass="login-box">
 
-                        <Label text="☕"
-                               textFill="#c79a63">
-                            <font>
-                                <Font size="60"/>
-                            </font>
-                        </Label>
+            <Label text="Login"
+                   styleClass="login-title"/>
+            <Label text="Masuk Untuk Mengakses Dashboard"
+                   styleClass="login-subtitle"/>
 
-                        <Label text="CoffeeShop"
-                               textFill="WHITE">
-                            <font>
-                                <Font name="System Bold" size="28"/>
-                            </font>
-                        </Label>
+            <!-- Username -->
+            <VBox spacing="5" styleClass="login-field-group">
+                <Label text="Username" styleClass="login-label"/>
+                <HBox styleClass="login-input-box" alignment="CENTER_LEFT">
+                    <Label text="👤" styleClass="login-icon"/>
+                    <TextField fx:id="tfUsername"
+                               promptText="Masukan Username"
+                               styleClass="login-input"
+                               HBox.hgrow="ALWAYS"/>
+                </HBox>
+            </VBox>
 
-                        <Label text="Brew Your Moments"
-                               textFill="WHITE">
-                            <font>
-                                <Font size="22"/>
-                            </font>
-                        </Label>
+            <!-- Password -->
+            <VBox spacing="5" styleClass="login-field-group">
+                <Label text="Password" styleClass="login-label"/>
+                <HBox styleClass="login-input-box" alignment="CENTER_LEFT">
+                    <Label text="🔒" styleClass="login-icon"/>
+                    <PasswordField fx:id="pfPassword"
+                                  promptText="Masukan Password"
+                                  styleClass="login-input"
+                                  HBox.hgrow="ALWAYS"/>
+                </HBox>
+            </VBox>
 
-                        <Separator prefWidth="290"
-                                   style="-fx-background-color: #c79a63;"/>
-                    </children>
-                </VBox>
+            <!-- Error -->
+            <Label fx:id="lblError" text=""
+                   styleClass="login-error"
+                   visible="false" wrapText="true" maxWidth="280"/>
 
-                <!-- coffee image -->
-                <ImageView fitHeight="250.0"
-                           fitWidth="300.0"
-                           layoutX="60.0"
-                           layoutY="250.0"
-                           preserveRatio="true">
-                    <image>
-                        <!-- GANTI DENGAN PATH GAMBAR -->
-                        
-                    </image>
-                </ImageView>
+            <!-- Tombol Login -->
+            <Button fx:id="btnLogin" text="Masuk >"
+                    maxWidth="Infinity"
+                    styleClass="btn-login"
+                    onAction="#doLogin">
+                <VBox.margin><Insets top="15"/></VBox.margin>
+            </Button>
 
-            </children>
-        </AnchorPane>
+            <!-- Footer -->
+            <Label text="© 2026 CoffeeShop" styleClass="login-footer">
+                <VBox.margin><Insets top="15"/></VBox.margin>
+            </Label>
 
-        <!-- RIGHT PANEL -->
-        <AnchorPane layoutX="431.0"
-                    prefHeight="529.0"
-                    prefWidth="454.0"
-                    style="-fx-background-color: #f5f5f5;">
+        </VBox>
+    </StackPane>
 
-            <children>
-
-                <!-- title -->
-                <VBox alignment="CENTER"
-                      layoutX="77.0"
-                      layoutY="50.0"
-                      prefWidth="300.0"
-                      spacing="10.0">
-
-                    <children>
-
-                        <Label text="Login"
-                               textFill="#3b1d0d">
-                            <font>
-                                <Font name="System Bold" size="42"/>
-                            </font>
-                        </Label>
-
-                        <HBox alignment="CENTER"
-                              spacing="10">
-
-                            <children>
-
-                                <Separator prefWidth="80"/>
-                                <Label text="☕"
-                                       textFill="#b1743f">
-                                    <font>
-                                        <Font size="18"/>
-                                    </font>
-                                </Label>
-                                <Separator prefWidth="80"/>
-
-                            </children>
-                        </HBox>
-
-                        <Label text="Masuk Untuk Mengakses Dashboard"
-                               textFill="#b1743f">
-                            <font>
-                                <Font size="18"/>
-                            </font>
-                        </Label>
-
-                    </children>
-                </VBox>
-
-                <!-- Form -->
-                <VBox layoutX="56.0"
-                      layoutY="190.0"
-                      prefWidth="340.0"
-                      spacing="18.0">
-
-                    <children>
-
-                        <!-- Username -->
-                        <VBox spacing="8">
-
-                            <children>
-
-                                <Label text="Username"
-                                       textFill="#2d1b10">
-                                    <font>
-                                        <Font size="16"/>
-                                    </font>
-                                </Label>
-
-                                <HBox alignment="CENTER_LEFT"
-                                      prefHeight="40"
-                                      style="-fx-background-color: white; -fx-border-color: #b5b5b5; -fx-border-radius: 8; -fx-background-radius: 8;">
-
-                                    <children>
-
-                                        <Label text="👤"
-                                               style="-fx-padding: 0 10 0 10;">
-                                            <font>
-                                                <Font size="18"/>
-                                            </font>
-                                        </Label>
-
-                                        <TextField promptText="Masukan Username"
-                                                   prefHeight="40"
-                                                   prefWidth="280"
-                                                   style="-fx-background-color: transparent; -fx-border-color: transparent;"
-
-                                                   fx:id="usernameField"/>
-
-                                    </children>
-                                </HBox>
-
-                            </children>
-                        </VBox>
-
-                        <!-- Password -->
-                        <VBox spacing="8">
-
-                            <children>
-
-                                <Label text="Password"
-                                       textFill="#2d1b10">
-                                    <font>
-                                        <Font size="16"/>
-                                    </font>
-                                </Label>
-
-                                <HBox alignment="CENTER_LEFT"
-                                      prefHeight="40"
-                                      style="-fx-background-color: white; -fx-border-color: #b5b5b5; -fx-border-radius: 8; -fx-background-radius: 8;">
-
-                                    <children>
-
-                                        <Label text="🔒"
-                                               style="-fx-padding: 0 10 0 10;">
-                                            <font>
-                                                <Font size="18"/>
-                                            </font>
-                                        </Label>
-
-                                        <PasswordField promptText="Masukan Password"
-                                                       prefHeight="40"
-                                                       prefWidth="240"
-                                                       style="-fx-background-color: transparent; -fx-border-color: transparent;"
-                                                        
-                                                        fx:id="passwordField"/>
-
-                                        <Button text="👁"
-                                                style="-fx-background-color: transparent; -fx-cursor: hand;"/>
-
-                                    </children>
-                                </HBox>
-
-                            </children>
-                        </VBox>
-
-                        <!-- Remember Me -->
-                        <CheckBox text="Ingat Saya"
-                                  selected="true"
-                                  textFill="#3b1d0d"/>
-
-                        <!-- Login Button -->
-                        <Button prefHeight="40"
-                                prefWidth="230"
-                                style="-fx-background-color: #4b240f;
-                                       -fx-text-fill: white;
-                                       -fx-background-radius: 10;
-                                       -fx-font-size: 16;
-                                       -fx-font-weight: bold;"
-                                text="Masuk ->"
-                                
-                                onAction="#handleLogin"/>
-
-                    </children>
-
-                    <padding>
-                        <Insets top="10"/>
-                    </padding>
-
-                </VBox>
-
-            </children>
-        </AnchorPane>
-
-    </children>
-</AnchorPane>
+</HBox>

@@ -1,0 +1,158 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.image.*?>
+<?import javafx.geometry.*?>
+
+<HBox xmlns="http://javafx.com/javafx"
+      xmlns:fx="http://javafx.com/fxml"
+      fx:controller="com.timkasir.controller.KasirDashboardController"
+      prefWidth="1200" prefHeight="750"
+      styleClass="dashboard-root">
+
+    <!-- ══════════════ SIDEBAR ══════════════ -->
+    <VBox prefWidth="240" styleClass="sidebar" spacing="0">
+        <!-- Logo -->
+        <VBox alignment="CENTER" spacing="4" styleClass="sidebar-logo">
+            <ImageView fitWidth="70" preserveRatio="true">
+                <image><Image url="@/com/timkasir/images/logo2.png"/></image>
+            </ImageView>
+            <Label text="CoffeeShop" styleClass="sidebar-brand"/>
+            <Label text="Brew Your Moments" styleClass="sidebar-tagline"/>
+        </VBox>
+
+        <!-- Info kasir -->
+        <VBox alignment="CENTER" spacing="2" styleClass="sidebar-user">
+            <Label fx:id="lblNamaKasir" text="Kasir" styleClass="sidebar-username"/>
+            <Label fx:id="lblRole" text="KASIR" styleClass="sidebar-role"/>
+        </VBox>
+
+        <!-- Menu -->
+        <VBox styleClass="sidebar-menu" VBox.vgrow="ALWAYS" spacing="4">
+            <Button text="☕  Pilih Produk" styleClass="menu-item-active" maxWidth="Infinity"/>
+            <Button text="🛒  Keranjang"   styleClass="menu-item" maxWidth="Infinity"/>
+            <Button text="🧾  Struk"       styleClass="menu-item" maxWidth="Infinity"/>
+        </VBox>
+
+        <!-- Logout -->
+        <Button text="⬅  Logout" styleClass="btn-logout"
+                maxWidth="Infinity" onAction="#logout">
+            <VBox.margin><Insets bottom="15" left="10" right="10"/></VBox.margin>
+        </Button>
+    </VBox>
+
+    <!-- ══════════════ MAIN CONTENT ══════════════ -->
+    <VBox VBox.vgrow="ALWAYS" HBox.hgrow="ALWAYS" styleClass="main-content">
+
+        <!-- Topbar -->
+        <HBox styleClass="topbar" alignment="CENTER_LEFT" spacing="10">
+            <Label text="Selamat Datang, " styleClass="topbar-greet"/>
+            <Label fx:id="lblNamaKasir2" text="Kasir" styleClass="topbar-name"/>
+            <Region HBox.hgrow="ALWAYS"/>
+            <Label text="KASIR DASHBOARD" styleClass="topbar-title"/>
+        </HBox>
+
+        <!-- POS Layout: kiri produk, kanan keranjang -->
+        <HBox VBox.vgrow="ALWAYS" spacing="20" styleClass="pos-layout">
+
+            <!-- ─── KIRI: Produk ─── -->
+            <VBox HBox.hgrow="ALWAYS" spacing="12" styleClass="product-panel">
+                <Label text="PILIH PRODUK" styleClass="section-title"/>
+
+                <!-- Search + Filter -->
+                <HBox spacing="10" alignment="CENTER_LEFT">
+                    <TextField fx:id="tfCari" promptText="Cari Produk..."
+                               styleClass="search-field" HBox.hgrow="ALWAYS"/>
+                    <ComboBox fx:id="cbKategori" styleClass="combo-kategori" prefWidth="150"/>
+                </HBox>
+
+                <!-- Grid produk pakai ScrollPane + FlowPane -->
+                <ScrollPane VBox.vgrow="ALWAYS" fitToWidth="true" styleClass="product-scroll">
+                    <FlowPane fx:id="fpProduk" hgap="15" vgap="15"
+                              styleClass="product-flowpane"/>
+                </ScrollPane>
+            </VBox>
+
+            <!-- ─── KANAN: Keranjang + Pembayaran ─── -->
+            <VBox prefWidth="380" spacing="0" styleClass="cart-panel">
+
+                <!-- Header keranjang -->
+                <HBox alignment="CENTER_LEFT" styleClass="cart-header-bar">
+                    <Label text="🛒  KERANJANG" styleClass="cart-title" HBox.hgrow="ALWAYS"/>
+                    <Button text="Kosongkan" styleClass="btn-clear" onAction="#clearKeranjang"/>
+                </HBox>
+
+                <!-- Tabel keranjang -->
+                <TableView fx:id="tblKeranjang" VBox.vgrow="ALWAYS"
+                           styleClass="cart-table" prefHeight="220">
+                    <columns>
+                        <TableColumn fx:id="colNama"     text="Produk"   prefWidth="130"/>
+                        <TableColumn fx:id="colHarga"    text="Harga"    prefWidth="85"/>
+                        <TableColumn fx:id="colQty"      text="Qty"      prefWidth="90"/>
+                        <TableColumn fx:id="colSubtotal" text="Subtotal" prefWidth="90"/>
+                        <TableColumn fx:id="colAksi"     text=""         prefWidth="40"/>
+                    </columns>
+                    <placeholder><Label text="Keranjang kosong"/></placeholder>
+                </TableView>
+
+                <!-- Summary -->
+                <VBox styleClass="cart-summary" spacing="8">
+                    <HBox>
+                        <Label text="Subtotal" styleClass="summary-label" HBox.hgrow="ALWAYS"/>
+                        <Label fx:id="lblSubtotal" text="Rp 0" styleClass="summary-value"/>
+                    </HBox>
+
+                    <!-- Diskon -->
+                    <HBox spacing="8" alignment="CENTER_LEFT">
+                        <Label text="Diskon" styleClass="summary-label"/>
+                        <Region HBox.hgrow="ALWAYS"/>
+                        <ComboBox fx:id="cbDiskon" prefWidth="130" styleClass="combo-diskon"/>
+                        <TextField fx:id="tfNilaiDiskon" promptText="0"
+                                   prefWidth="80" styleClass="input-diskon"/>
+                    </HBox>
+
+                    <HBox>
+                        <Label text="Pajak" styleClass="summary-label" HBox.hgrow="ALWAYS"/>
+                        <Label fx:id="lblPajak" text="Rp 0" styleClass="summary-value"/>
+                    </HBox>
+
+                    <HBox styleClass="total-row">
+                        <Label text="TOTAL" styleClass="total-label" HBox.hgrow="ALWAYS"/>
+                        <Label fx:id="lblTotal" text="Rp 0" styleClass="total-value"/>
+                    </HBox>
+                </VBox>
+
+                <!-- Pembayaran -->
+                <VBox styleClass="payment-section" spacing="8">
+                    <Label text="Metode Pembayaran" styleClass="payment-label"/>
+                    <ComboBox fx:id="cbMetode" maxWidth="Infinity" styleClass="combo-metode"/>
+
+                    <Label text="Jumlah Dibayar" styleClass="payment-label"/>
+                    <TextField fx:id="tfDibayar" promptText="Masukan nominal..."
+                               styleClass="input-dibayar"/>
+
+                    <HBox alignment="CENTER_LEFT">
+                        <Label text="Kembalian" styleClass="payment-label" HBox.hgrow="ALWAYS"/>
+                        <Label fx:id="lblKembalian" text="-" styleClass="kembalian-value"/>
+                    </HBox>
+                </VBox>
+
+                <!-- Tombol Bayar -->
+                <Button fx:id="btnBayar" text="💳  PROSES BAYAR"
+                        maxWidth="Infinity" styleClass="btn-bayar"
+                        onAction="#prosesBayar">
+                    <VBox.margin><Insets top="10" bottom="5"/></VBox.margin>
+                </Button>
+
+                <!-- Struk -->
+                <VBox styleClass="struk-section" spacing="5">
+                    <Label text="STRUK TRANSAKSI" styleClass="struk-label"/>
+                    <TextArea fx:id="taStruk" editable="false" prefHeight="160"
+                              styleClass="struk-area" wrapText="false"/>
+                </VBox>
+
+            </VBox>
+        </HBox>
+    </VBox>
+</HBox>

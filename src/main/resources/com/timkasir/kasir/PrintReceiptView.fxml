@@ -1,0 +1,158 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.geometry.*?>
+
+<BorderPane xmlns:fx="http://javafx.com/fxml/1" fx:controller="controllers.PrintReceiptController" 
+            style="-fx-background-color: #f5f5f5;">
+    
+    <!-- TOP BAR -->
+    <top>
+        <HBox style="-fx-background-color: #fff; -fx-border-color: #c99862; -fx-border-width: 0 0 2 0;"
+              alignment="CENTER_LEFT" spacing="20" prefHeight="80">
+            <padding><Insets top="20" bottom="20" left="30" right="30"/></padding>
+            
+            <Button text="☰" style="-fx-font-size: 25; -fx-background-color: transparent;"/>
+            <Label text="Selamat Datang, Barista" style="-fx-font-size: 24; -fx-text-fill: #3b2314;"/>
+            
+            <Region HBox.hgrow="ALWAYS"/>
+            <Label fx:id="timeLabel" style="-fx-background-color: #d3aa78; -fx-padding: 10 20;"/>
+        </HBox>
+    </top>
+    
+    <!-- SIDEBAR -->
+    <left>
+        <VBox style="-fx-background-color: rgba(55,28,10,0.88); -fx-min-width: 260;" spacing="0" prefWidth="260">
+            <padding><Insets all="20"/></padding>
+            <VBox alignment="CENTER" spacing="10">
+                <Label text="CoffeeShop" style="-fx-font-size: 22; -fx-text-fill: white; -fx-font-weight: bold;"/>
+                <Label text="Brew Your Moments" style="-fx-font-size: 12; -fx-text-fill: white;"/>
+            </VBox>
+            <Separator style="-fx-padding: 20 0;"/>
+            <VBox spacing="8">
+                <Button text="🖨️ Cetak Struk" style="-fx-text-fill: white; -fx-background-color: #d3aa78;"/>
+                <Button text="📦 Lihat Stok Barang" style="-fx-text-fill: white; -fx-background-color: transparent;"/>
+                <Button text="🚪 Logout" style="-fx-text-fill: white; -fx-background-color: transparent;"/>
+            </VBox>
+        </VBox>
+    </left>
+    
+    <!-- MAIN CONTENT -->
+    <center>
+        <VBox spacing="20" style="-fx-background-color: #fff;" VBox.vgrow="ALWAYS">
+            <padding><Insets all="30"/></padding>
+            
+            <Label text="CETAK STRUK" style="-fx-font-size: 32; -fx-text-fill: #3b2314; -fx-font-weight: bold;"/>
+            
+            <!-- TWO COLUMN LAYOUT -->
+            <HBox spacing="40">
+                
+                <!-- LEFT: PREVIEW -->
+                <VBox spacing="20">
+                    <Label text="PREVIEW STRUK" style="-fx-font-size: 24; -fx-text-fill: #3b2314; -fx-font-weight: bold;"/>
+                    
+                    <ScrollPane style="-fx-background-color: #fdf3e7; -fx-padding: 25; -fx-border-radius: 4; -fx-max-width: 400;" fitToWidth="true">
+                        <VBox style="-fx-background-color: #fdf3e7; -fx-text-fill: #3b2314; -fx-font-size: 13;" spacing="10">
+                            
+                            <VBox alignment="CENTER" spacing="5">
+                                <Label text="CoffeeShop" style="-fx-font-size: 20; -fx-font-weight: bold;"/>
+                                <Label text="Brew Your Moments" style="-fx-font-size: 11; -fx-font-style: italic;"/>
+                            </VBox>
+                            
+                            <Separator/>
+                            
+                            <HBox spacing="80">
+                                <Label text="Tanggal"/>
+                                <Label fx:id="receiptDate" text=": -"/>
+                            </HBox>
+                            
+                            <HBox spacing="80">
+                                <Label text="No TRX"/>
+                                <Label fx:id="receiptNo" text=": TRX-"/>
+                            </HBox>
+                            
+                            <Separator/>
+                            
+                            <TableView fx:id="receiptTable" style="-fx-font-size: 11;">
+                                <columns>
+                                    <TableColumn text="Item" prefWidth="200" fx:id="itemColumn"/>
+                                    <TableColumn text="Qty" prefWidth="50" fx:id="qtyColumn"/>
+                                    <TableColumn text="Harga" prefWidth="100" fx:id="priceColumn"/>
+                                </columns>
+                            </TableView>
+                            
+                            <Separator/>
+                            
+                            <HBox spacing="80">
+                                <Label text="Subtotal"/>
+                                <Label fx:id="receiptSubtotal" text="Rp 0"/>
+                            </HBox>
+                            
+                            <HBox spacing="80">
+                                <Label text="Diskon"/>
+                                <Label fx:id="receiptDiscount" text="Rp 0"/>
+                            </HBox>
+                            
+                            <HBox spacing="80">
+                                <Label text="Pajak"/>
+                                <Label fx:id="receiptTax" text="Rp 0"/>
+                            </HBox>
+                            
+                            <Separator/>
+                            
+                            <HBox spacing="80" style="-fx-font-weight: bold; -fx-font-size: 15;">
+                                <Label text="Total"/>
+                                <Label fx:id="receiptTotal" text="Rp 0"/>
+                            </HBox>
+                            
+                            <HBox spacing="80">
+                                <Label text="Metode"/>
+                                <Label fx:id="receiptMethod" text="-"/>
+                            </HBox>
+                            
+                            <HBox spacing="80">
+                                <Label text="Dibayar"/>
+                                <Label fx:id="receiptPaid" text="Rp 0"/>
+                            </HBox>
+                            
+                            <HBox spacing="80">
+                                <Label text="Kembalian"/>
+                                <Label fx:id="receiptChange" text="Rp 0"/>
+                            </HBox>
+                            
+                            <Separator/>
+                            
+                            <VBox alignment="CENTER" spacing="5">
+                                <Label text="TERIMA KASIH" style="-fx-font-weight: bold;"/>
+                                <Label text="Datang Kembali" style="-fx-font-size: 11;"/>
+                            </VBox>
+                        </VBox>
+                    </ScrollPane>
+                </VBox>
+                
+                <!-- RIGHT: CONTROL PANEL -->
+                <VBox style="-fx-background-color: #fdf3e7; -fx-padding: 35; -fx-border-radius: 25; -fx-max-width: 400;" spacing="22">
+                    <Label text="CETAK STRUK" style="-fx-font-size: 26; -fx-text-fill: #3b2314; -fx-font-weight: bold;"/>
+                    
+                    <VBox spacing="8">
+                        <Label text="Printer" style="-fx-font-size: 18; -fx-font-weight: bold; -fx-text-fill: #3b2314;"/>
+                        <ComboBox fx:id="printerSelect" style="-fx-padding: 12 15; -fx-font-size: 15; -fx-min-width: 280;"/>
+                    </VBox>
+                    
+                    <VBox spacing="8">
+                        <Label text="Jumlah Lembar" style="-fx-font-size: 18; -fx-font-weight: bold; -fx-text-fill: #3b2314;"/>
+                        <TextField fx:id="pageCount" text="1" style="-fx-padding: 12 15; -fx-font-size: 16; -fx-text-alignment: center;"/>
+                    </VBox>
+                    
+                    <Button text="CETAK" style="-fx-padding: 15; -fx-font-size: 16; -fx-background-color: #371c0a; -fx-text-fill: white; -fx-font-weight: bold;" 
+                            onAction="#printReceipt"/>
+                    <Button text="EXPORT PDF" style="-fx-padding: 15; -fx-font-size: 16; -fx-background-color: #6e4a2d; -fx-text-fill: white; -fx-font-weight: bold;" 
+                            onAction="#exportPDF"/>
+                    <Button text="PREVIEW" style="-fx-padding: 15; -fx-font-size: 16; -fx-background-color: #a67c52; -fx-text-fill: white; -fx-font-weight: bold;" 
+                            onAction="#preview"/>
+                </VBox>
+            </HBox>
+        </VBox>
+    </center>
+</BorderPane>

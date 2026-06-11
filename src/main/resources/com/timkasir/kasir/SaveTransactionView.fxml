@@ -1,0 +1,74 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.geometry.*?>
+
+<BorderPane xmlns:fx="http://javafx.com/fxml/1" fx:controller="controllers.SaveTransactionController" 
+            style="-fx-background-color: #f5f5f5;">
+    
+    <!-- TOP BAR -->
+    <top>
+        <HBox style="-fx-background-color: #fff; -fx-border-color: #c99862; -fx-border-width: 0 0 2 0;"
+              alignment="CENTER_LEFT" spacing="20" prefHeight="80">
+            <padding><Insets top="20" bottom="20" left="30" right="30"/></padding>
+            
+            <Button text="☰" style="-fx-font-size: 25; -fx-background-color: transparent;"/>
+            <Label text="Selamat Datang, Barista" style="-fx-font-size: 24; -fx-text-fill: #3b2314;"/>
+            
+            <Region HBox.hgrow="ALWAYS"/>
+            <Label fx:id="timeLabel" style="-fx-background-color: #d3aa78; -fx-padding: 10 20;"/>
+        </HBox>
+    </top>
+    
+    <!-- SIDEBAR -->
+    <left>
+        <VBox style="-fx-background-color: rgba(55,28,10,0.88); -fx-min-width: 260;" spacing="0" prefWidth="260">
+            <padding><Insets all="20"/></padding>
+            <VBox alignment="CENTER" spacing="10">
+                <Label text="CoffeeShop" style="-fx-font-size: 22; -fx-text-fill: white; -fx-font-weight: bold;"/>
+                <Label text="Brew Your Moments" style="-fx-font-size: 12; -fx-text-fill: white;"/>
+            </VBox>
+            <Separator style="-fx-padding: 20 0;"/>
+            <VBox spacing="8">
+                <Button text="💾 Simpan Transaksi" style="-fx-text-fill: white; -fx-background-color: #d3aa78;"/>
+                <Button text="🖨️ Cetak Struk" style="-fx-text-fill: white; -fx-background-color: transparent;"/>
+                <Button text="📦 Lihat Stok Barang" style="-fx-text-fill: white; -fx-background-color: transparent;"/>
+                <Button text="🚪 Logout" style="-fx-text-fill: white; -fx-background-color: transparent;"/>
+            </VBox>
+        </VBox>
+    </left>
+    
+    <!-- MAIN CONTENT -->
+    <center>
+        <VBox alignment="TOP_CENTER" spacing="20" style="-fx-background-color: #fff;" VBox.vgrow="ALWAYS">
+            <padding><Insets all="30"/></padding>
+            
+            <Label text="SIMPAN STRUK / TRANSAKSI" style="-fx-font-size: 32; -fx-text-fill: #3b2314; -fx-font-weight: bold;"/>
+            
+            <!-- TRANSACTION CARD -->
+            <VBox style="-fx-background-color: #fdf3e7; -fx-padding: 35; -fx-border-radius: 25; -fx-max-width: 550;" spacing="20">
+                
+                <VBox spacing="8">
+                    <Label text="No. Transaksi" style="-fx-font-weight: bold; -fx-font-size: 18; -fx-text-fill: #3b2314;"/>
+                    <TextField fx:id="transactionNo" style="-fx-padding: 12 20; -fx-font-size: 15; -fx-background-color: #cdd1d6;" 
+                               promptText="(No transaksi)"/>
+                </VBox>
+                
+                <VBox spacing="8">
+                    <Label text="Tanggal" style="-fx-font-weight: bold; -fx-font-size: 18; -fx-text-fill: #3b2314;"/>
+                    <DatePicker fx:id="transactionDate" style="-fx-padding: 12 20; -fx-font-size: 15; -fx-background-color: #cdd1d6;"/>
+                </VBox>
+                
+                <VBox spacing="8">
+                    <Label text="Kasir" style="-fx-font-weight: bold; -fx-font-size: 18; -fx-text-fill: #3b2314;"/>
+                    <TextField fx:id="cashierName" style="-fx-padding: 12 20; -fx-font-size: 15; -fx-background-color: #cdd1d6;" 
+                               promptText="(Bisa di isi nama barista nya)"/>
+                </VBox>
+                
+                <Button text="SIMPAN TRANSAKSI" style="-fx-padding: 15; -fx-font-size: 16; -fx-background-color: #371c0a; -fx-text-fill: white; -fx-font-weight: bold; -fx-margin-top: 15;" 
+                        onAction="#saveTransaction"/>
+            </VBox>
+        </VBox>
+    </center>
+</BorderPane>

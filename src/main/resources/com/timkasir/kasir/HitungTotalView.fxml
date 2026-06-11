@@ -1,0 +1,102 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.geometry.*?>
+
+<BorderPane xmlns:fx="http://javafx.com/fxml/1" fx:controller="controllers.HitungTotalController" 
+            style="-fx-background-color: #f5f5f5;">
+    
+    <!-- TOP BAR -->
+    <top>
+        <HBox style="-fx-background-color: #fff; -fx-border-color: #c99862; -fx-border-width: 0 0 2 0;"
+              alignment="CENTER_LEFT" spacing="20" prefHeight="80">
+            <padding><Insets top="20" bottom="20" left="30" right="30"/></padding>
+            
+            <Button text="☰" style="-fx-font-size: 25; -fx-background-color: transparent;"/>
+            <Label text="Selamat Datang, Barista" style="-fx-font-size: 24; -fx-text-fill: #3b2314;"/>
+            
+            <Region HBox.hgrow="ALWAYS"/>
+            <Label fx:id="timeLabel" style="-fx-background-color: #d3aa78; -fx-padding: 10 20;"/>
+        </HBox>
+    </top>
+    
+    <!-- SIDEBAR -->
+    <left>
+        <VBox style="-fx-background-color: rgba(55,28,10,0.88); -fx-min-width: 260;" spacing="0" prefWidth="260">
+            <padding><Insets all="20"/></padding>
+            <VBox alignment="CENTER" spacing="10">
+                <Label text="CoffeeShop" style="-fx-font-size: 22; -fx-text-fill: white; -fx-font-weight: bold;"/>
+                <Label text="Brew Your Moments" style="-fx-font-size: 12; -fx-text-fill: white;"/>
+            </VBox>
+            <Separator style="-fx-padding: 20 0;"/>
+            <VBox spacing="8">
+                <Button text="🧮 Hitung Total" style="-fx-text-fill: white; -fx-background-color: #d3aa78;"/>
+                <Button text="💵 Bayar" style="-fx-text-fill: white; -fx-background-color: transparent;"/>
+                <Button text="💾 Simpan Transaksi" style="-fx-text-fill: white; -fx-background-color: transparent;"/>
+                <Button text="🖨️ Cetak Struk" style="-fx-text-fill: white; -fx-background-color: transparent;"/>
+                <Button text="📦 Lihat Stok Barang" style="-fx-text-fill: white; -fx-background-color: transparent;"/>
+                <Button text="🚪 Logout" style="-fx-text-fill: white; -fx-background-color: transparent;"/>
+            </VBox>
+        </VBox>
+    </left>
+    
+    <!-- MAIN CONTENT -->
+    <center>
+        <VBox spacing="20" style="-fx-background-color: #fff;" VBox.vgrow="ALWAYS">
+            <padding><Insets all="30"/></padding>
+            
+            <Label text="HITUNG TOTAL" style="-fx-font-size: 32; -fx-text-fill: #3b2314; -fx-font-weight: bold;"/>
+            
+            <!-- SUMMARY BOX -->
+            <VBox style="-fx-background-color: #fdf3e7; -fx-padding: 35; -fx-border-radius: 25; -fx-max-width: 800;">
+                
+                <Label style="-fx-font-size: 24; -fx-text-fill: #3b2314; -fx-font-weight: bold; -fx-text-transform: uppercase; -fx-padding: 0 0 25 0;">RINGKASAN</Label>
+                
+                <HBox spacing="20" style="-fx-padding: 10 0;">
+                    <Label text="Subtotal:" style="-fx-font-size: 20; -fx-text-fill: #3b2314;"/>
+                    <Region HBox.hgrow="ALWAYS"/>
+                    <Label fx:id="subtotalLabel" text="Rp 0" style="-fx-font-size: 20; -fx-text-fill: #3b2314; -fx-font-weight: bold;"/>
+                </HBox>
+                
+                <!-- DISCOUNT SECTION -->
+                <HBox spacing="15" style="-fx-padding: 10 0;">
+                    <Label text="Diskon:" style="-fx-font-size: 20; -fx-text-fill: #3b2314;"/>
+                    <ComboBox fx:id="discountType" style="-fx-padding: 10 15; -fx-min-width: 130;">
+                        <items>
+                            <FXCollections fx:factory="observableArrayList">
+                                <String fx:value="Tidak Ada"/>
+                                <String fx:value="Persen (%)"/>
+                                <String fx:value="Nominal (Rp)"/>
+                            </FXCollections>
+                        </items>
+                    </ComboBox>
+                    <TextField fx:id="discountValue" promptText="Isi diskon" style="-fx-padding: 10 15; -fx-min-width: 220;"/>
+                    <Region HBox.hgrow="ALWAYS"/>
+                    <Label fx:id="discountLabel" text="Rp 0" style="-fx-font-size: 20; -fx-text-fill: #3b2314; -fx-font-weight: bold;"/>
+                </HBox>
+                
+                <HBox spacing="20" style="-fx-padding: 10 0;">
+                    <Label text="Pajak:" style="-fx-font-size: 20; -fx-text-fill: #3b2314;"/>
+                    <Region HBox.hgrow="ALWAYS"/>
+                    <Label fx:id="taxLabel" text="Rp 0" style="-fx-font-size: 20; -fx-text-fill: #3b2314; -fx-font-weight: bold;"/>
+                </HBox>
+                
+                <!-- TOTAL BAR -->
+                <HBox style="-fx-background-color: #371c0a; -fx-padding: 15 25; -fx-border-radius: 15; -fx-margin-top: 30;" spacing="30">
+                    <Label text="TOTAL:" style="-fx-font-size: 24; -fx-text-fill: white; -fx-font-weight: bold;"/>
+                    <Region HBox.hgrow="ALWAYS"/>
+                    <Label fx:id="totalLabel" text="Rp 0" style="-fx-font-size: 24; -fx-text-fill: white; -fx-font-weight: bold;"/>
+                </HBox>
+            </VBox>
+            
+            <!-- BUTTONS -->
+            <HBox spacing="20" style="-fx-max-width: 800;">
+                <Button text="KEMBALI" style="-fx-padding: 15; -fx-font-size: 16; -fx-background-color: #fdf3e7; -fx-text-fill: #371c0a; -fx-border-color: #6e4a2d; -fx-border-width: 2;" 
+                        HBox.hgrow="ALWAYS" onAction="#goBack"/>
+                <Button text="LANJUT KE PEMBAYARAN" style="-fx-padding: 15; -fx-font-size: 16; -fx-background-color: #371c0a; -fx-text-fill: white; -fx-font-weight: bold;" 
+                        HBox.hgrow="ALWAYS" onAction="#goToPayment"/>
+            </HBox>
+        </VBox>
+    </center>
+</BorderPane>

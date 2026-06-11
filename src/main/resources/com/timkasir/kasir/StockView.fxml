@@ -1,0 +1,70 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.geometry.*?>
+
+<BorderPane xmlns:fx="http://javafx.com/fxml/1" fx:controller="controllers.StockController" 
+            style="-fx-background-color: #f5f5f5;">
+    
+    <!-- TOP BAR -->
+    <top>
+        <HBox style="-fx-background-color: #fff; -fx-border-color: #c99862; -fx-border-width: 0 0 2 0;"
+              alignment="CENTER_LEFT" spacing="20" prefHeight="80">
+            <padding><Insets top="20" bottom="20" left="30" right="30"/></padding>
+            
+            <Button text="☰" style="-fx-font-size: 25; -fx-background-color: transparent;"/>
+            <Label text="Selamat Datang, Barista" style="-fx-font-size: 24; -fx-text-fill: #3b2314;"/>
+            
+            <Region HBox.hgrow="ALWAYS"/>
+            <Label fx:id="timeLabel" style="-fx-background-color: #d3aa78; -fx-padding: 10 20;"/>
+        </HBox>
+    </top>
+    
+    <!-- SIDEBAR -->
+    <left>
+        <VBox style="-fx-background-color: rgba(55,28,10,0.88); -fx-min-width: 260;" spacing="0" prefWidth="260">
+            <padding><Insets all="20"/></padding>
+            <VBox alignment="CENTER" spacing="10">
+                <Label text="CoffeeShop" style="-fx-font-size: 22; -fx-text-fill: white; -fx-font-weight: bold;"/>
+                <Label text="Brew Your Moments" style="-fx-font-size: 12; -fx-text-fill: white;"/>
+            </VBox>
+            <Separator style="-fx-padding: 20 0;"/>
+            <VBox spacing="8">
+                <Button text="📦 Lihat Stok Barang" style="-fx-text-fill: white; -fx-background-color: #d3aa78;"/>
+                <Button text="🚪 Logout" style="-fx-text-fill: white; -fx-background-color: transparent;"/>
+            </VBox>
+        </VBox>
+    </left>
+    
+    <!-- MAIN CONTENT -->
+    <center>
+        <VBox spacing="20" style="-fx-background-color: #fff;" VBox.vgrow="ALWAYS">
+            <padding><Insets all="30"/></padding>
+            
+            <Label text="STOK BARANG" style="-fx-font-size: 32; -fx-text-fill: #3b2314; -fx-font-weight: bold;"/>
+            
+            <!-- SEARCH BAR -->
+            <HBox alignment="CENTER_LEFT" spacing="10">
+                <TextField fx:id="searchBar" promptText="Cari Barang..." style="-fx-padding: 10; -fx-font-size: 14;" prefWidth="650"/>
+                <Button text="🔍" onAction="#searchStock"/>
+            </HBox>
+            
+            <!-- STOCK TABLE -->
+            <ScrollPane fitToWidth="true" VBox.vgrow="ALWAYS">
+                <TableView fx:id="stockTable" style="-fx-font-size: 15; -fx-border-color: #000000; -fx-border-width: 2;">
+                    <columns>
+                        <TableColumn text="No" prefWidth="60" fx:id="noColumn"/>
+                        <TableColumn text="Nama Barang" prefWidth="300" fx:id="nameColumn"/>
+                        <TableColumn text="Stok" prefWidth="100" fx:id="stockColumn"/>
+                        <TableColumn text="Kategori" prefWidth="150" fx:id="categoryColumn"/>
+                        <TableColumn text="Harga" prefWidth="150" fx:id="priceColumn"/>
+                    </columns>
+                </TableView>
+            </ScrollPane>
+            
+            <!-- PAGINATION INFO -->
+            <Label text="Menampilkan 1-8 Dari 10 Data" style="-fx-font-size: 15; -fx-text-fill: #7c7c7c;"/>
+        </VBox>
+    </center>
+</BorderPane>

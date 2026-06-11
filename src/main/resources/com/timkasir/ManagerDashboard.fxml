@@ -1,0 +1,153 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.image.*?>
+<?import javafx.geometry.*?>
+
+<HBox xmlns="http://javafx.com/javafx"
+      xmlns:fx="http://javafx.com/fxml"
+      fx:controller="com.timkasir.controller.ManagerDashboardController"
+      prefWidth="1200" prefHeight="750"
+      styleClass="dashboard-root">
+
+    <!-- ══════════════ SIDEBAR ══════════════ -->
+    <VBox prefWidth="240" styleClass="sidebar" spacing="0">
+        <VBox alignment="CENTER" spacing="4" styleClass="sidebar-logo">
+            <ImageView fitWidth="70" preserveRatio="true">
+                <image><Image url="@/com/timkasir/images/logo2.png"/></image>
+            </ImageView>
+            <Label text="CoffeeShop" styleClass="sidebar-brand"/>
+            <Label text="Brew Your Moments" styleClass="sidebar-tagline"/>
+        </VBox>
+
+        <VBox alignment="CENTER" spacing="2" styleClass="sidebar-user">
+            <Label fx:id="lblNama" text="Manager" styleClass="sidebar-username"/>
+            <Label fx:id="lblRole" text="MANAGER"  styleClass="sidebar-role"/>
+        </VBox>
+
+        <VBox styleClass="sidebar-menu" VBox.vgrow="ALWAYS" spacing="4">
+            <Button text="📊  Laporan Penjualan" styleClass="menu-item-active" maxWidth="Infinity"/>
+            <Button text="👥  Manajemen Karyawan" styleClass="menu-item" maxWidth="Infinity"/>
+        </VBox>
+
+        <Button text="⬅  Logout" styleClass="btn-logout"
+                maxWidth="Infinity" onAction="#logout">
+            <VBox.margin><Insets bottom="15" left="10" right="10"/></VBox.margin>
+        </Button>
+    </VBox>
+
+    <!-- ══════════════ MAIN CONTENT ══════════════ -->
+    <VBox HBox.hgrow="ALWAYS" styleClass="main-content">
+
+        <!-- Topbar -->
+        <HBox styleClass="topbar" alignment="CENTER_LEFT" spacing="10">
+            <Label text="Selamat Datang, " styleClass="topbar-greet"/>
+            <Label fx:id="lblNama2" text="Manager" styleClass="topbar-name"/>
+            <Region HBox.hgrow="ALWAYS"/>
+            <Label text="MANAGER DASHBOARD" styleClass="topbar-title"/>
+        </HBox>
+
+        <!-- Summary cards hari ini -->
+        <HBox spacing="20" styleClass="summary-cards">
+            <VBox styleClass="stat-card stat-card-brown" HBox.hgrow="ALWAYS">
+                <Label text="💰  Total Hari Ini" styleClass="stat-label"/>
+                <Label fx:id="lblTotalHariIni" text="Rp 0" styleClass="stat-value"/>
+            </VBox>
+            <VBox styleClass="stat-card stat-card-brown" HBox.hgrow="ALWAYS">
+                <Label text="🧾  Transaksi Hari Ini" styleClass="stat-label"/>
+                <Label fx:id="lblTransaksiHariIni" text="0" styleClass="stat-value"/>
+            </VBox>
+            <VBox styleClass="stat-card stat-card-brown" HBox.hgrow="ALWAYS">
+                <Label text="👥  Total Karyawan" styleClass="stat-label"/>
+                <Label fx:id="lblTotalKaryawan" text="0" styleClass="stat-value"/>
+            </VBox>
+        </HBox>
+
+        <!-- Tab -->
+        <TabPane VBox.vgrow="ALWAYS" styleClass="main-tabpane" tabClosingPolicy="UNAVAILABLE">
+
+            <!-- ─── TAB LAPORAN ─── -->
+            <Tab text="📊  Laporan Penjualan">
+                <VBox spacing="12" styleClass="tab-content">
+                    <HBox alignment="CENTER_LEFT" spacing="10">
+                        <Label text="SEMUA TRANSAKSI" styleClass="section-title" HBox.hgrow="ALWAYS"/>
+                        <Button text="🔄  Refresh" styleClass="btn-secondary" onAction="#loadLaporan"/>
+                    </HBox>
+                    <TableView fx:id="tblLaporan" VBox.vgrow="ALWAYS" styleClass="data-table">
+                        <columns>
+                            <TableColumn fx:id="colNo"       text="No. Transaksi" prefWidth="160"/>
+                            <TableColumn fx:id="colTgl"      text="Tanggal"       prefWidth="150"/>
+                            <TableColumn fx:id="colKasir"    text="Kasir"         prefWidth="120"/>
+                            <TableColumn fx:id="colPelanggan" text="Pelanggan"    prefWidth="120"/>
+                            <TableColumn fx:id="colTotal"    text="Total"         prefWidth="120"/>
+                            <TableColumn fx:id="colMetode"   text="Metode"        prefWidth="100"/>
+                        </columns>
+                        <placeholder><Label text="Belum ada transaksi"/></placeholder>
+                    </TableView>
+                </VBox>
+            </Tab>
+
+            <!-- ─── TAB KARYAWAN ─── -->
+            <Tab text="👥  Manajemen Karyawan">
+                <HBox spacing="20" styleClass="tab-content">
+
+                    <!-- Tabel karyawan -->
+                    <VBox HBox.hgrow="ALWAYS" spacing="10">
+                        <HBox alignment="CENTER_LEFT">
+                            <Label text="DAFTAR KARYAWAN" styleClass="section-title" HBox.hgrow="ALWAYS"/>
+                            <Button text="🔄  Refresh" styleClass="btn-secondary" onAction="#loadKaryawan"/>
+                        </HBox>
+                        <TableView fx:id="tblKaryawan" VBox.vgrow="ALWAYS" styleClass="data-table">
+                            <columns>
+                                <TableColumn fx:id="colIdUser"       text="ID"       prefWidth="45"/>
+                                <TableColumn fx:id="colUsername"     text="Username" prefWidth="120"/>
+                                <TableColumn fx:id="colNamaKaryawan" text="Nama"     prefWidth="150"/>
+                                <TableColumn fx:id="colRoleUser"     text="Role"     prefWidth="80"/>
+                                <TableColumn fx:id="colStatusUser"   text="Status"   prefWidth="80"/>
+                                <TableColumn fx:id="colAksiUser"     text="Aksi"     prefWidth="110"/>
+                            </columns>
+                            <placeholder><Label text="Belum ada karyawan"/></placeholder>
+                        </TableView>
+                    </VBox>
+
+                    <!-- Form karyawan -->
+                    <VBox prefWidth="280" spacing="10" styleClass="form-panel">
+                        <Label text="FORM KARYAWAN" styleClass="section-title"/>
+
+                        <Label text="Username" styleClass="form-label"/>
+                        <TextField fx:id="tfUsername" promptText="Username" styleClass="form-input"/>
+
+                        <Label text="Password" styleClass="form-label"/>
+                        <PasswordField fx:id="pfPassword" promptText="Password baru / kosongkan jika edit" styleClass="form-input"/>
+
+                        <Label text="Nama Lengkap" styleClass="form-label"/>
+                        <TextField fx:id="tfNamaLengkap" promptText="Nama lengkap" styleClass="form-input"/>
+
+                        <Label text="No. HP" styleClass="form-label"/>
+                        <TextField fx:id="tfNoHp" promptText="08xx-xxxx-xxxx" styleClass="form-input"/>
+
+                        <Label text="Alamat" styleClass="form-label"/>
+                        <TextField fx:id="tfAlamat" promptText="Alamat" styleClass="form-input"/>
+
+                        <Label text="Role" styleClass="form-label"/>
+                        <ComboBox fx:id="cbRole" maxWidth="Infinity" styleClass="form-combo"/>
+
+                        <Label text="Status" styleClass="form-label"/>
+                        <ComboBox fx:id="cbStatusUser" maxWidth="Infinity" styleClass="form-combo"/>
+
+                        <HBox spacing="10">
+                            <Button fx:id="btnSimpanUser" text="Simpan"
+                                    styleClass="btn-primary" HBox.hgrow="ALWAYS"
+                                    maxWidth="Infinity" onAction="#simpanUser"/>
+                            <Button text="Batal"
+                                    styleClass="btn-secondary" HBox.hgrow="ALWAYS"
+                                    maxWidth="Infinity" onAction="#batalEditUser"/>
+                        </HBox>
+                    </VBox>
+                </HBox>
+            </Tab>
+
+        </TabPane>
+    </VBox>
+</HBox>

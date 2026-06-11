@@ -1,0 +1,214 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+<BorderPane xmlns="http://javafx.com/javafx/17"
+            xmlns:fx="http://javafx.com/fxml/1"
+            fx:controller="com.timkasir.controller.LeadDashboardController">
+
+    <!-- HEADER -->
+    <top>
+        <HBox spacing="20" styleClass="header">
+            <padding>
+                <Insets top="15" right="20" bottom="15" left="20"/>
+            </padding>
+
+            <VBox>
+                <Label text="Lead Dashboard" styleClass="title"/>
+                <Label fx:id="lblNama"/>
+            </VBox>
+
+            <Region HBox.hgrow="ALWAYS"/>
+
+            <VBox>
+                <Label text="Role"/>
+                <Label fx:id="lblRole"/>
+            </VBox>
+
+            <Button text="Logout"
+                    onAction="#logout"
+                    styleClass="btn-danger"/>
+        </HBox>
+    </top>
+
+    <!-- CONTENT -->
+    <center>
+        <TabPane tabClosingPolicy="UNAVAILABLE">
+
+            <!-- TAB STOK -->
+            <tabs>
+
+                <Tab text="Manajemen Stok">
+
+                    <BorderPane>
+
+                        <!-- TABLE -->
+                        <center>
+                            <TableView fx:id="tblStok">
+
+                                <columns>
+
+                                    <TableColumn fx:id="colIdProduk"
+                                                 text="ID"
+                                                 prefWidth="60"/>
+
+                                    <TableColumn fx:id="colNamaProduk"
+                                                 text="Nama Produk"
+                                                 prefWidth="200"/>
+
+                                    <TableColumn fx:id="colKategori"
+                                                 text="Kategori"
+                                                 prefWidth="120"/>
+
+                                    <TableColumn fx:id="colHargaProduk"
+                                                 text="Harga"
+                                                 prefWidth="120"/>
+
+                                    <TableColumn fx:id="colStok"
+                                                 text="Stok"
+                                                 prefWidth="80"/>
+
+                                    <TableColumn fx:id="colStatus"
+                                                 text="Status"
+                                                 prefWidth="100"/>
+
+                                    <TableColumn fx:id="colAksiStok"
+                                                 text="Aksi"
+                                                 prefWidth="150"/>
+
+                                </columns>
+
+                            </TableView>
+                        </center>
+
+                        <!-- FORM -->
+                        <right>
+
+                            <VBox spacing="10" prefWidth="320">
+
+                                <padding>
+                                    <Insets top="15"
+                                            right="15"
+                                            bottom="15"
+                                            left="15"/>
+                                </padding>
+
+                                <Label text="Form Produk"
+                                       styleClass="section-title"/>
+
+                                <TextField fx:id="tfNamaProduk"
+                                           promptText="Nama Produk"/>
+
+                                <TextField fx:id="tfHarga"
+                                           promptText="Harga"/>
+
+                                <TextField fx:id="tfStok"
+                                           promptText="Stok"/>
+
+                                <ComboBox fx:id="cbKategoriProduk"
+                                          promptText="Kategori"/>
+
+                                <TextField fx:id="tfFoto"
+                                           promptText="Path Foto"/>
+
+                                <ComboBox fx:id="cbStatusProduk"
+                                          promptText="Status"/>
+
+                                <HBox spacing="10">
+
+                                    <Button fx:id="btnSimpanProduk"
+                                            text="Simpan"
+                                            onAction="#simpanProduk"
+                                            maxWidth="Infinity"
+                                            HBox.hgrow="ALWAYS"/>
+
+                                    <Button fx:id="btnBatalProduk"
+                                            text="Batal"
+                                            onAction="#batalEdit"
+                                            maxWidth="Infinity"
+                                            HBox.hgrow="ALWAYS"/>
+
+                                </HBox>
+
+                            </VBox>
+
+                        </right>
+
+                    </BorderPane>
+
+                </Tab>
+
+                <!-- TAB PENJUALAN -->
+                <Tab text="Laporan Penjualan">
+
+                    <VBox spacing="15">
+
+                        <padding>
+                            <Insets top="15"
+                                    right="15"
+                                    bottom="15"
+                                    left="15"/>
+                        </padding>
+
+                        <!-- SUMMARY -->
+                        <HBox spacing="15">
+
+                            <VBox styleClass="summary-card">
+                                <Label text="Total Penjualan"/>
+                                <Label fx:id="lblTotalPenjualan"/>
+                            </VBox>
+
+                            <VBox styleClass="summary-card">
+                                <Label text="Jumlah Transaksi"/>
+                                <Label fx:id="lblJumlahTransaksi"/>
+                            </VBox>
+
+                            <VBox styleClass="summary-card">
+                                <Label text="Rata-rata"/>
+                                <Label fx:id="lblRataRata"/>
+                            </VBox>
+
+                        </HBox>
+
+                        <!-- TABLE TRANSAKSI -->
+                        <TableView fx:id="tblTransaksi"
+                                   VBox.vgrow="ALWAYS">
+
+                            <columns>
+
+                                <TableColumn fx:id="colNoTransaksi"
+                                             text="No Transaksi"
+                                             prefWidth="180"/>
+
+                                <TableColumn fx:id="colTglTransaksi"
+                                             text="Tanggal"
+                                             prefWidth="180"/>
+
+                                <TableColumn fx:id="colKasir"
+                                             text="Kasir"
+                                             prefWidth="180"/>
+
+                                <TableColumn fx:id="colTotal"
+                                             text="Total"
+                                             prefWidth="150"/>
+
+                                <TableColumn fx:id="colMetode"
+                                             text="Metode"
+                                             prefWidth="150"/>
+
+                            </columns>
+
+                        </TableView>
+
+                    </VBox>
+
+                </Tab>
+
+            </tabs>
+
+        </TabPane>
+    </center>
+
+</BorderPane>
